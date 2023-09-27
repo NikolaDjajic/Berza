@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 
 class Item2 extends StatelessWidget {
   var item;
-  Item2({this.item});
+  var ci;
+  Item2({this.item,this.ci});
 
   @override
   Widget build(BuildContext context) {
     double myHeight = MediaQuery.of(context).size.height -10;
-    double myWidth = MediaQuery.of(context).size.width ;
+    double myWidth = MediaQuery.of(context).size.width *0.6 ;
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: myWidth * 0.03, vertical: myHeight * 0.02),
@@ -31,12 +32,12 @@ class Item2 extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                  height: myHeight * 0.035, child: Image.network(item.image)),
+                  height: myHeight * 0.035, child: Image.network(item.slika)),
               SizedBox(
                 height: myHeight * 0.02,
               ),
               Text(
-                item.id,
+                item.ime.toString(),
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(
@@ -45,13 +46,13 @@ class Item2 extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    item.priceChange24H.toString().contains('-')
+                    item.cijena.toString().contains('-')
                         ? "-\$" +
-                            item.priceChange24H
+                            item.cijena
                                 .toStringAsFixed(2)
                                 .toString()
                                 .replaceAll('-', '')
-                        : "\$" + item.priceChange24H.toStringAsFixed(2),
+                        : "\$" + item.cijena.toStringAsFixed(2),
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.normal,
@@ -61,11 +62,11 @@ class Item2 extends StatelessWidget {
                     width: myWidth * 0.03,
                   ),
                   Text(
-                    item.marketCapChangePercentage24H.toStringAsFixed(2) + '%',
+                    ci.toStringAsFixed(2) + '%',
                     style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.normal,
-                        color: item.marketCapChangePercentage24H >= 0
+                        color: item.kolicina >= 0
                             ? Colors.green
                             : Colors.red),
                   ),

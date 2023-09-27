@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'package:crypto/View/navBar.dart';
 import 'package:crypto/View/splash.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class IO extends StatefulWidget {
+  
   const IO({Key? key}) : super(key: key);
 
   @override
@@ -10,16 +13,36 @@ class IO extends StatefulWidget {
 }
 
 class _IOState extends State<IO> {
+  bool isFieldPopulated = false; // Prazan početni status
+
+  
   @override
   void initState() {
+      checkFieldPopulated(); // Poziv funkcije za proveru
+
     Timer(
       Duration(seconds: 4),
       () {
+
+        if(isFieldPopulated){
+        Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => NavBar()));
+                  }
+        else{
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Splash()));
+        }
       },
     );
     super.initState();
+  }
+
+
+   Future<void> checkFieldPopulated() async {
+    WidgetsFlutterBinding.ensureInitialized(); // Možete staviti ovde
+    final prefs = await SharedPreferences.getInstance();
+    isFieldPopulated = prefs.containsKey('username');
+    setState(() {}); // Obavestite Flutter framework da se promenila vrednost
   }
 
   @override
@@ -40,7 +63,7 @@ class _IOState extends State<IO> {
               children: [
                 Text(''),
                 Text(
-                  'IO Crypto',
+                  'Berza',
                   style: TextStyle(
                       fontSize: 60,
                       color: Colors.black,
@@ -53,7 +76,7 @@ class _IOState extends State<IO> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          'Creat by',
+                          'Dobrodosli',
                           style: TextStyle(
                               fontSize: 20,
                               color: Colors.black,
@@ -62,11 +85,6 @@ class _IOState extends State<IO> {
                         SizedBox(
                           width: myWidth * 0.02,
                         ),
-                        Image.asset(
-                          'assets/image/io.png',
-                          height: myHeight * 0.03,
-                          color: Colors.black,
-                        )
                       ],
                     ),
                     SizedBox(

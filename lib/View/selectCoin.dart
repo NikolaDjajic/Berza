@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:crypto/View/home.dart';
+import 'package:crypto/View/navBar.dart';
 import 'package:crypto/main.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -421,7 +423,7 @@ Row(
       },
     );  
     }
-        else{
+        else if(numberOfShares>0){
                       final dionicaId = widget.selectItem.id;
                       final kolicina = numberOfShares;
                       final slika = widget.selectItem.image;
@@ -431,14 +433,15 @@ Row(
                       final Dionica dio = Dionica(cijena:cijena,simbol:simbol,ime:ime,slika:slika,dionicaId: dionicaId, kolicina: kolicina);
                           await DatabaseHelper.addDionica(dio);
 
-                      money!=money!-(widget.selectItem.currentPrice * numberOfShares);
+                      double kes=money!-(widget.selectItem.currentPrice * numberOfShares);
+                      money = kes;
                       updateMoney(money!);
                         showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: Text('Kupili ste dionicu!'),
-          content: Text('Kupili ste $kolicina, $ime dionice  po cijeni $cijena.'),
+          content: Text('Kupili $money ste $kolicina, $ime dionice  po cijeni $cijena.'),
           actions: [
             TextButton(
               onPressed: () {
@@ -451,7 +454,11 @@ Row(
         );
       },
     );  
-  }                                   
+
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) => NavBar(),
+    ));
+        }
   },
 
 

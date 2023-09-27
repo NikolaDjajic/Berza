@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    double myHeight = MediaQuery.of(context).size.height +30;
+    double myHeight = MediaQuery.of(context).size.height -36;
     double myWidth = MediaQuery.of(context).size.width;
     
     return Scaffold(
@@ -73,7 +73,7 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    money.toString()!,
+                    '\$${money!.toStringAsFixed(2)}',
                     style: TextStyle(fontSize: 35),
                   ),
                  
@@ -94,10 +94,14 @@ class _HomeState extends State<Home> {
               ),
             ),
 
-            //dionice
+            
             SizedBox(
               height: myHeight * 0.02,
             ),
+
+
+//dionice
+
             Container(
               height: myHeight * 0.7,
               width: myWidth,
@@ -138,7 +142,7 @@ class _HomeState extends State<Home> {
 
                   //Poslije podnaslova (Lista dionica)
                  Container(
-  height: myHeight * 0.36,
+  height: myHeight * 0.61 -3,
   child: isRefreshing == true
       ? Center(
           child: CircularProgressIndicator(
@@ -157,7 +161,7 @@ class _HomeState extends State<Home> {
             )
           : SingleChildScrollView(
               child: ListView.builder(
-                itemCount: 15,
+                itemCount: 50,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
@@ -167,61 +171,6 @@ class _HomeState extends State<Home> {
                 },
               ),
             ),
-),
-
-
-
-
-// Recommended
-SizedBox(
-  height: myHeight * 0.02,
-),
-Padding(
-  padding: EdgeInsets.symmetric(horizontal: myWidth * 0.05),
-  child: Row(
-    children: [
-      Text(
-        'Moje dionice',
-        style: TextStyle(
-          fontSize: 22,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    ],
-  ),
-),
-
-// item2-ovi (Recommended)
-Expanded(
-  child: Padding(
-    padding: EdgeInsets.only(left: myWidth * 0.03),
-    child: isRefreshing == true
-        ? Center(
-            child: CircularProgressIndicator(
-              color: Color(0xffFBC700),
-            ),
-          )
-        : coinMarket == null || coinMarket!.length == 0
-            ? Padding(
-                padding: EdgeInsets.all(myHeight * 0.06),
-                child: Center(
-                  child: Text(
-                    'API greska.',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ),
-              )
-            : SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: coinMarket!.map((item) {
-                    return Item2(
-                      item: item,
-                    );
-                  }).toList(),
-                ),
-              ),
-  ),
 ),
                   SizedBox(
                     height: myHeight * 0.01,
@@ -238,7 +187,7 @@ Expanded(
   bool isRefreshing = true;
 
   List? coinMarket = [];
-  var coinMarketList;
+
   Future<List<CoinModel>?> getCoinMarket() async {
     const url =
         'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&sparkline=true';
@@ -264,3 +213,4 @@ Expanded(
     }
   }
 }
+var coinMarketList;

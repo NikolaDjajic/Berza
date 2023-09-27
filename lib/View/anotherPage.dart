@@ -1,8 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:crypto/Model/coinModel.dart';
 import 'package:crypto/View/Baza/Dionica.dart';
 import 'package:crypto/View/Baza/dataBaseHelper.dart';
-
-
+import 'package:crypto/View/Components/item2.dart';
+import 'package:flutter/material.dart';
+import 'package:crypto/View/dionicaKupljena.dart'; // Import the DionicaDetailPage
+import 'package:crypto/View/home.dart';
+import 'package:http/http.dart' as http;
 
 class AnotherPage extends StatefulWidget {
   @override
@@ -39,13 +42,44 @@ class _AnotherPageState extends State<AnotherPage> {
               itemCount: dionice!.length,
               itemBuilder: (context, index) {
                 final dionica = dionice![index];
-                return ListTile(
-                  title: Text(dionica.ime),
-                  subtitle: Text('Simbol: ${dionica.simbol}'),
-                  // Dodajte više informacija ili akcija prema potrebi
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DionicaDetailPage(
+                          dionica: dionica,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Item2(
+                    item: dionica,
+                    ci:getCoinModelByName(dionica.simbol) // Pass the selected Dionica item
+ // Pass the Dionica item to Item2
+                  ),
                 );
               },
             ),
     );
   }
+
+
+ double getCoinModelByName(String simbol) {
+  if (coinMarketList == null) {
+    return 0; // Lista je null, nemoguće pronaći
+  }
+
+  for (CoinModel coinModel in coinMarketList) {
+    if (coinModel.symbol == simbol) {
+      return coinModel.currentPrice; // Pronađen je odgovarajući CoinModel
+    }
+  }
+
+  return 0; // Ime nije pronađeno u listi
 }
+
+
+}
+
+
