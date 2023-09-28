@@ -55,7 +55,7 @@ class _AnotherPageState extends State<AnotherPage> {
                   },
                   child: Item2(
                     item: dionica,
-                    ci:getCoinModelByName(dionica.simbol) // Pass the selected Dionica item
+                    cijenaTrenutna:getCijenaBySimbol(dionica.simbol) // Pass the selected Dionica item
  // Pass the Dionica item to Item2
                   ),
                 );
@@ -65,7 +65,7 @@ class _AnotherPageState extends State<AnotherPage> {
   }
 
 
- double getCoinModelByName(String simbol) {
+ double getCijenaBySimbol(String simbol) {
   if (coinMarketList == null) {
     return 0; // Lista je null, nemoguće pronaći
   }
@@ -79,7 +79,9 @@ class _AnotherPageState extends State<AnotherPage> {
   return 0; // Ime nije pronađeno u listi
 }
 
+//Dialog za prodaju
 
+ 
 }
 
 
