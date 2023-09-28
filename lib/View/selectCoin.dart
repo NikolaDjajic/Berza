@@ -424,18 +424,42 @@ Row(
     );  
     }
         else if(numberOfShares>0){
+
                       final dionicaId = widget.selectItem.id;
                       final kolicina = numberOfShares;
                       final slika = widget.selectItem.image;
                       final simbol = widget.selectItem.symbol;
                       final ime = widget.selectItem.name;
-                      final cijena = widget.selectItem.currentPrice;
-                      final Dionica dio = Dionica(cijena:cijena,simbol:simbol,ime:ime,slika:slika,dionicaId: dionicaId, kolicina: kolicina);
+                      final cijena = widget.selectItem.currentPrice * kolicina;
+                      bool rez=false;
+
+                      Dionica? dio1 = await DatabaseHelper.getDionicaBySymbol(simbol);
+
+
+                      if(dio1!=null){
+    
+                        var cijena1 = (dio1!.cijena)! + cijena;
+                        var kolicina1 = (dio1!.kolicina) + kolicina;
+
+                        final Dionica dio = Dionica(id:dio1.id,cijena:cijena1,kolicina: kolicina1,simbol:simbol,ime:ime,slika:slika,dionicaId: dionicaId);
+                          await DatabaseHelper.updateDionica(dio);
+
+                      double kes=money!-(widget.selectItem.currentPrice * numberOfShares);
+                      money = kes;
+                      updateMoney(money!);
+
+                      }
+                      else{
+                        final Dionica dio = Dionica(cijena:cijena,simbol:simbol,ime:ime,slika:slika,dionicaId: dionicaId, kolicina: kolicina);
                           await DatabaseHelper.addDionica(dio);
 
                       double kes=money!-(widget.selectItem.currentPrice * numberOfShares);
                       money = kes;
                       updateMoney(money!);
+                      }
+
+
+                      
                         showDialog(
       context: context,
       builder: (context) {

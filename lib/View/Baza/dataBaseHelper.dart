@@ -55,4 +55,32 @@ class DatabaseHelper {
     }
     return List.generate(maps.length, (index) => Dionica.fromJson(maps[index]));
   }
+
+  static Future<bool> sadrzi(String simbol) async {
+  List<Dionica>? lista = await getAllDionice(); // Wait for the result
+  if (lista != null) {
+    for (Dionica d in lista) {
+      if (d.simbol == simbol) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+static Future<Dionica?> getDionicaBySymbol(String symbol) async {
+  final List<Dionica>? allDionice = await getAllDionice();
+
+  if (allDionice != null) {
+    for (Dionica d in allDionice) {
+      if (d.simbol == symbol) {
+        return d;
+      }
+    }
+  }
+  return null;
+}
+
+
+
 }
