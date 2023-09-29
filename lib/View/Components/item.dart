@@ -1,4 +1,3 @@
-import 'package:chart_sparkline/chart_sparkline.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto/View/selectCoin.dart';
 
@@ -40,7 +39,7 @@ class Item extends StatelessWidget {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    '0.4 ' + item.symbol,
+                    '' + item.symbol,
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.normal,
@@ -49,35 +48,6 @@ class Item extends StatelessWidget {
                 ],
               ),
             ),
-
-            //Vljd graf
-            /*
-            SizedBox(
-              width: myWidth * 0.01,
-            ),
-            Expanded(
-              flex: 2,
-              child: Container(
-                height: myHeight * 0.05,
-                // width: myWidth * 0.2,
-                child: Sparkline(
-                  data: item.sparklineIn7D.price,
-                  lineWidth: 2.0,
-                  lineColor: item.marketCapChangePercentage24H >= 0
-                      ? Colors.green
-                      : Colors.red,
-                  fillMode: FillMode.below,
-                  fillGradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      stops: const [0.0, 0.7],
-                      colors: item.marketCapChangePercentage24H >= 0
-                          ? [Colors.green, Colors.green.shade100]
-                          : [Colors.red, Colors.red.shade100]),
-                ),
-              ),
-            ),
-*/
 
             //Cijena i to
             SizedBox(

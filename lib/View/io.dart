@@ -13,12 +13,12 @@ class IO extends StatefulWidget {
 }
 
 class _IOState extends State<IO> {
-  bool isFieldPopulated = false; // Prazan početni status
+  bool isFieldPopulated = false; 
 
   
   @override
   void initState() {
-      checkFieldPopulated(); // Poziv funkcije za proveru
+      checkFieldPopulated(); 
 
     Timer(
       Duration(seconds: 4),
@@ -39,10 +39,10 @@ class _IOState extends State<IO> {
 
 
    Future<void> checkFieldPopulated() async {
-    WidgetsFlutterBinding.ensureInitialized(); // Možete staviti ovde
+    WidgetsFlutterBinding.ensureInitialized(); 
     final prefs = await SharedPreferences.getInstance();
     isFieldPopulated = prefs.containsKey('username');
-    setState(() {}); // Obavestite Flutter framework da se promenila vrednost
+    setState(() {}); 
   }
 
   @override

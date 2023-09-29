@@ -1,10 +1,8 @@
 import 'package:crypto/Model/coinModel.dart';
 import 'package:crypto/View/Components/item.dart';
-import 'package:crypto/View/Components/item2.dart';
 import 'package:crypto/main.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -22,9 +20,9 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    double myHeight = MediaQuery.of(context).size.height -36;
+    double myHeight = MediaQuery.of(context).size.height - 36;
     double myWidth = MediaQuery.of(context).size.width;
-    
+
     return Scaffold(
       body: Container(
         height: myHeight,
@@ -42,29 +40,31 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             // Naslov
-     Padding(
-  padding: EdgeInsets.symmetric(vertical: myHeight * 0.03),
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceAround,
-    children: [
-      Container(
-        padding: EdgeInsets.symmetric(
-            horizontal: myWidth * 0.02, vertical: myHeight * 0.01), // Prilagodite visinu ovdje
-        decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.5),
-            borderRadius: BorderRadius.circular(5)),
-        child: Center(
-          child: Text(
-            'Berza',
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold), // Prilagodite veličinu i stil teksta
-          ),
-        ),
-      ),
-    ],
-  ),
-),
-
-
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: myHeight * 0.03),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: myWidth * 0.02,
+                        vertical: myHeight * 0.01), 
+                    decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.5),
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Center(
+                      child: Text(
+                        'Berza',
+                        style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight
+                                .bold), 
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
 
             //*/ KES LOVA
             Padding(
@@ -76,7 +76,6 @@ class _HomeState extends State<Home> {
                     '\$${money!.toStringAsFixed(2)}',
                     style: TextStyle(fontSize: 35),
                   ),
-                 
                 ],
               ),
             ),
@@ -94,11 +93,9 @@ class _HomeState extends State<Home> {
               ),
             ),
 
-            
             SizedBox(
               height: myHeight * 0.02,
             ),
-
 
 //dionice
 
@@ -139,39 +136,38 @@ class _HomeState extends State<Home> {
                     height: myHeight * 0.02,
                   ),
 
-
                   //Poslije podnaslova (Lista dionica)
-                 Container(
-  height: myHeight * 0.61 -3,
-  child: isRefreshing == true
-      ? Center(
-          child: CircularProgressIndicator(
-            color: Color(0xffFBC700),
-          ),
-        )
-      : coinMarket == null || coinMarket!.length == 0
-          ? Padding(
-              padding: EdgeInsets.all(myHeight * 0.06),
-              child: Center(
-                child: Text(
-                  'API greska.',
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-            )
-          : SingleChildScrollView(
-              child: ListView.builder(
-                itemCount: 50,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return Item(
-                    item: coinMarket![index],
-                  );
-                },
-              ),
-            ),
-),
+                  Container(
+                    height: myHeight * 0.61 - 3,
+                    child: isRefreshing == true
+                        ? Center(
+                            child: CircularProgressIndicator(
+                              color: Color(0xffFBC700),
+                            ),
+                          )
+                        : coinMarket == null || coinMarket!.length == 0
+                            ? Padding(
+                                padding: EdgeInsets.all(myHeight * 0.06),
+                                child: Center(
+                                  child: Text(
+                                    'API greska.',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                              )
+                            : SingleChildScrollView(
+                                child: ListView.builder(
+                                  itemCount: 50,
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    return Item(
+                                      item: coinMarket![index],
+                                    );
+                                  },
+                                ),
+                              ),
+                  ),
                   SizedBox(
                     height: myHeight * 0.01,
                   ),
@@ -213,4 +209,5 @@ class _HomeState extends State<Home> {
     }
   }
 }
+
 var coinMarketList;

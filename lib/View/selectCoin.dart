@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:crypto/View/home.dart';
 import 'package:crypto/View/navBar.dart';
 import 'package:crypto/main.dart';
 import 'package:flutter/material.dart';
@@ -241,7 +240,7 @@ class _SelectCoinState extends State<SelectCoin> {
                 ),
                 Center(
                   child: Container(
-                    height: myHeight * 0.03+10,
+                    height: myHeight * 0.03 + 10,
                     child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
@@ -266,9 +265,6 @@ class _SelectCoinState extends State<SelectCoin> {
                               setDays(text[index]);
                               getChart();
                             },
-
-
-
                             child: Container(
                               padding: EdgeInsets.symmetric(
                                   horizontal: myWidth * 0.03,
@@ -293,93 +289,54 @@ class _SelectCoinState extends State<SelectCoin> {
                 SizedBox(
                   height: myHeight * 0.04,
                 ),
-            /*    Expanded(
-                    child: ListView(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: myWidth * 0.06),
-                      child: Text(
-                        'News',
-                        style: TextStyle(fontSize: 25),
+         
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          numberOfShares--;
+                          if (numberOfShares < 0) {
+                            numberOfShares = 0;
+                          }
+                          _textController.text = numberOfShares.toString();
+                        });
+                      },
+                      icon: Icon(Icons.remove),
+                    ),
+                    Container(
+                      width: 80,
+                      child: TextField(
+                        controller: _textController,
+                        keyboardType: TextInputType.number,
+                        onChanged: (value) {
+                          setState(() {
+                            numberOfShares = int.tryParse(value) ?? 0;
+                          });
+                        },
+                        decoration: InputDecoration(
+                          labelText: '0',
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: myWidth * 0.06,
-                          vertical: myHeight * 0.01),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                              textAlign: TextAlign.justify,
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 17),
-                            ),
-                          ),
-                          Container(
-                            width: myWidth * 0.25,
-                            child: CircleAvatar(
-                              radius: myHeight * 0.04,
-                              backgroundImage:
-                                  AssetImage('assets/image/11.PNG'),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          numberOfShares++;
+                          _textController.text = numberOfShares.toString();
+                        });
+                      },
+                      icon: Icon(Icons.add),
+                    ),
                   ],
-                ))*/
-Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      numberOfShares--;
-                      if (numberOfShares < 0) {
-                        numberOfShares = 0;
-                      }
-                      _textController.text = numberOfShares.toString();
-                    });
-                  },
-                  icon: Icon(Icons.remove),
                 ),
-                Container(
-                  width: 80, // Postavite željenu širinu za TextField
-                  child: TextField(
-                    controller: _textController,
-                    keyboardType: TextInputType.number,
-                    onChanged: (value) {
-                      setState(() {
-                        numberOfShares = int.tryParse(value) ?? 0;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      labelText: '0',
-                      border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 10), 
-
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      numberOfShares++;
-                      _textController.text = numberOfShares.toString();
-                    });
-                  },
-                  icon: Icon(Icons.add),
-                ),
-
-              ],
-            ),
-            SizedBox(height: 20), // Razmak između polja za unos i cijene
-            Text('Cijena: \$${(widget.selectItem.currentPrice * numberOfShares).toStringAsFixed(2)}'),
-
+                SizedBox(height: 20), 
+                Text(
+                    'Cijena: \$${(widget.selectItem.currentPrice * numberOfShares).toStringAsFixed(2)}'),
               ],
             )),
             Container(
@@ -397,136 +354,133 @@ Row(
                       SizedBox(
                         width: myWidth * 0.05,
                       ),
-                     Expanded(
-          flex: 5,
-                
-  child: ElevatedButton(
-      // ---------------------------------------------------------------------------------------
-  onPressed: () async{
-    if((widget.selectItem.currentPrice * numberOfShares)>money){
-                       showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Nedovoljno novca!'),
-          content: Text('Nemate dovoljno novca.'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                // Zatvaranje dijaloga
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
-            ),
-          ],
-        );
-      },
-    );  
-    }
-        else if(numberOfShares>0){
-
-                      final dionicaId = widget.selectItem.id;
-                      final kolicina = numberOfShares;
-                      final slika = widget.selectItem.image;
-                      final simbol = widget.selectItem.symbol;
-                      final ime = widget.selectItem.name;
-                      final cijena = widget.selectItem.currentPrice * kolicina;
-                      bool rez=false;
-
-                      Dionica? dio1 = await DatabaseHelper.getDionicaBySymbol(simbol);
-
-
-                      if(dio1!=null){
-    
-                        var cijena1 = (dio1!.cijena)! + cijena;
-                        var kolicina1 = (dio1!.kolicina) + kolicina;
-
-                        final Dionica dio = Dionica(id:dio1.id,cijena:cijena1,kolicina: kolicina1,simbol:simbol,ime:ime,slika:slika,dionicaId: dionicaId);
-                          await DatabaseHelper.updateDionica(dio);
-
-                      double kes=money!-(widget.selectItem.currentPrice * numberOfShares);
-                      money = kes;
-                      updateMoney(money!);
-
-                      }
-                      else{
-                        final Dionica dio = Dionica(cijena:cijena,simbol:simbol,ime:ime,slika:slika,dionicaId: dionicaId, kolicina: kolicina);
-                          await DatabaseHelper.addDionica(dio);
-
-                      double kes=money!-(widget.selectItem.currentPrice * numberOfShares);
-                      money = kes;
-                      updateMoney(money!);
-                      }
-
-
-                      
-                        showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Kupili ste dionicu!'),
-          content: Text('Kupili $money ste $kolicina, $ime dionice  po cijeni $cijena.'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                // Zatvaranje dijaloga
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
-            ),
-          ],
-        );
-      },
-    );  
-
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => NavBar(),
-    ));
-        }
-  },
-
-
-  // ---------------------------------------------------------------------------------------
-  style: ElevatedButton.styleFrom(
-    padding: EdgeInsets.symmetric(vertical: myHeight * 0.015),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(50),
-    ),
-    primary: Color(0xffFBC700),
-  ),
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Icon(
-        Icons.add,
-        size: myHeight * 0.02,
-      ),
-      Text(
-        'Kupi',
-        style: TextStyle(fontSize: 20),
-      ),
-    ],
-  ),
-)
-
-  ),
-
-                      /*
                       Expanded(
-                        flex: 2,
-                        child: Container(
-                          padding:
-                              EdgeInsets.symmetric(vertical: myHeight * 0.012),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: Colors.grey.withOpacity(0.2)),
-                          child: Image.asset(
-                            'assets/icons/3.1.png',
-                            height: myHeight * 0.03,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),*/
+                          flex: 5,
+                          child: ElevatedButton(
+                            // ---------------------------------------------------------------------------------------
+                            onPressed: () async {
+                              if ((widget.selectItem.currentPrice *
+                                      numberOfShares) >
+                                  money) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text('Nedovoljno novca!'),
+                                      content: Text('Nemate dovoljno novca.'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            // Zatvaranje dijaloga
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text('OK'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              } else if (numberOfShares > 0) {
+                                final dionicaId = widget.selectItem.id;
+                                final kolicina = numberOfShares;
+                                final slika = widget.selectItem.image;
+                                final simbol = widget.selectItem.symbol;
+                                final ime = widget.selectItem.name;
+                                final cijena =
+                                    widget.selectItem.currentPrice * kolicina;
+                                bool rez = false;
+
+                                Dionica? dio1 =
+                                    await DatabaseHelper.getDionicaBySymbol(
+                                        simbol);
+
+                                if (dio1 != null) {
+                                  var cijena1 = (dio1!.cijena)! + cijena;
+                                  var kolicina1 = (dio1!.kolicina) + kolicina;
+
+                                  final Dionica dio = Dionica(
+                                      id: dio1.id,
+                                      cijena: cijena1,
+                                      kolicina: kolicina1,
+                                      simbol: simbol,
+                                      ime: ime,
+                                      slika: slika,
+                                      dionicaId: dionicaId);
+                                  await DatabaseHelper.updateDionica(dio);
+
+                                  double kes = money! -
+                                      (widget.selectItem.currentPrice *
+                                          numberOfShares);
+                                  money = kes;
+                                  updateMoney(money!);
+                                } else {
+                                  final Dionica dio = Dionica(
+                                      cijena: cijena,
+                                      simbol: simbol,
+                                      ime: ime,
+                                      slika: slika,
+                                      dionicaId: dionicaId,
+                                      kolicina: kolicina);
+                                  await DatabaseHelper.addDionica(dio);
+
+                                  double kes = money! -
+                                      (widget.selectItem.currentPrice *
+                                          numberOfShares);
+                                  money = kes;
+                                  updateMoney(money!);
+                                }
+
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text('Kupili ste dionicu!'),
+                                      content: Text(
+                                          'Kupili $money ste $kolicina, $ime dionice  po cijeni $cijena.'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            // Zatvaranje dijaloga
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text('OK'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+
+                                Navigator.of(context)
+                                    .pushReplacement(MaterialPageRoute(
+                                  builder: (context) => NavBar(),
+                                ));
+                              }
+                            },
+
+                            // ---------------------------------------------------------------------------------------
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: myHeight * 0.015),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              primary: Color(0xffFBC700),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  size: myHeight * 0.02,
+                                ),
+                                Text(
+                                  'Kupi',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ],
+                            ),
+                          )),
+
                       SizedBox(
                         width: myWidth * 0.05,
                       ),
@@ -608,4 +562,3 @@ Row(
     }
   }
 }
-//final Dionica dio = Dionica(cijena:20,simbol:'simbol',ime:'ime',slika:'slika',dionicaId: 'dionicaId', kolicina: 2);

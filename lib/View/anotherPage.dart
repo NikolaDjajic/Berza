@@ -3,9 +3,7 @@ import 'package:crypto/View/Baza/Dionica.dart';
 import 'package:crypto/View/Baza/dataBaseHelper.dart';
 import 'package:crypto/View/Components/item2.dart';
 import 'package:flutter/material.dart';
-import 'package:crypto/View/dionicaKupljena.dart'; // Import the DionicaDetailPage
 import 'package:crypto/View/home.dart';
-import 'package:http/http.dart' as http;
 
 class AnotherPage extends StatefulWidget {
   @override
@@ -32,7 +30,7 @@ class _AnotherPageState extends State<AnotherPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dionice'),
+        title: Text('Moje dionice'),
       ),
       body: dionice == null
           ? Center(
@@ -43,45 +41,25 @@ class _AnotherPageState extends State<AnotherPage> {
               itemBuilder: (context, index) {
                 final dionica = dionice![index];
                 return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DionicaDetailPage(
-                          dionica: dionica,
-                        ),
-                      ),
-                    );
-                  },
+                  onTap: () {},
                   child: Item2(
-                    item: dionica,
-                    cijenaTrenutna:getCijenaBySimbol(dionica.simbol) // Pass the selected Dionica item
- // Pass the Dionica item to Item2
-                  ),
+                      item: dionica,
+                      cijenaTrenutna: getCijenaBySimbol(dionica.simbol)),
                 );
               },
             ),
     );
   }
 
-
- double getCijenaBySimbol(String simbol) {
-  if (coinMarketList == null) {
-    return 0; // Lista je null, nemoguće pronaći
-  }
-
-  for (CoinModel coinModel in coinMarketList) {
-    if (coinModel.symbol == simbol) {
-      return coinModel.currentPrice; // Pronađen je odgovarajući CoinModel
+  double getCijenaBySimbol(String simbol) {
+    if (coinMarketList == null) {
+      return 0;
     }
+    for (CoinModel coinModel in coinMarketList) {
+      if (coinModel.symbol == simbol) {
+        return coinModel.currentPrice;
+      }
+    }
+    return 0; // Ime nije pronađeno u listi
   }
-
-  return 0; // Ime nije pronađeno u listi
 }
-
-//Dialog za prodaju
-
- 
-}
-
-
