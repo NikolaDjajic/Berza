@@ -20,83 +20,80 @@ class _SplashState extends State<Splash> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: Container(
-          height: myHeight,
-          width: myWidth,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment
-                .spaceBetween, 
-            children: [
-              Image.asset('assets/image/1.gif'),
-              Column(
-                children: [
-                  Container(
-                    width: myWidth * 0.7, 
-                    child: TextField(
-                      controller: _textFieldController,
-                      decoration: InputDecoration(
-                        labelText: '',
+        body: SingleChildScrollView( // Dodajte SingleChildScrollView oko Column
+          child: Container(
+            height: myHeight,
+            width: myWidth,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.asset('assets/image/1.gif'),
+                Column(
+                  children: [
+                    Container(
+                      width: myWidth * 0.7,
+                      child: TextField(
+                        controller: _textFieldController,
+                        decoration: InputDecoration(
+                          labelText: '',
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                      height: myHeight *
-                          0.02),
-                  Text(
-                    'Unesite vaše ime',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  SizedBox(
-                      height: myHeight *
-                          0.02), 
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: myWidth * 0.14),
-                child: GestureDetector(
-                  onTap: () {
-                    updateMoney(20000);
-                    money = 20000;
-                    updateUsername(_textFieldController.text);
-                    username = _textFieldController.text;
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => NavBar()));
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xffFBC700),
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: myWidth * 0.05,
-                        vertical: myHeight * 0.013,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Zapocni',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          RotationTransition(
-                            turns: AlwaysStoppedAnimation(310 / 360),
-                            child: Icon(Icons.arrow_forward_rounded),
-                          )
-                        ],
+                    SizedBox(height: myHeight * 0.02),
+                    Text(
+                      'Unesite vaše ime',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.grey,
                       ),
                     ),
-                  ),
+                    SizedBox(height: myHeight * 0.02),
+                  ],
                 ),
-              )
-            ],
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: myWidth * 0.14),
+                  child: GestureDetector(
+                    onTap: () {
+                      updateMoney(20000);
+                      money = 20000;
+                      updateUsername(_textFieldController.text);
+                      username = _textFieldController.text;
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => NavBar()));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xffFBC700),
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: myWidth * 0.05,
+                          vertical: myHeight * 0.013,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Započni',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                            RotationTransition(
+                              turns: AlwaysStoppedAnimation(310 / 360),
+                              child: Icon(Icons.arrow_forward_rounded),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

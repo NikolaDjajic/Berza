@@ -76,7 +76,7 @@ class _IOState extends State<IO> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          'Dobrodosli',
+                          'Dobrodošli',
                           style: TextStyle(
                               fontSize: 20,
                               color: Colors.black,
