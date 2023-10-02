@@ -113,7 +113,7 @@ class _Item2State extends State<Item2> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Prodaja proizvoda'),
+          title: Text('Prodaja dionice'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -139,9 +139,7 @@ class _Item2State extends State<Item2> {
                     child: TextField(
                       controller: _quantityController,
                       keyboardType: TextInputType.number,
-                      onChanged: (value) {
-                       
-                      },
+                      onChanged: (value) {},
                       decoration: InputDecoration(
                         labelText: '0',
                         border: OutlineInputBorder(),
@@ -162,6 +160,11 @@ class _Item2State extends State<Item2> {
                     icon: Icon(Icons.add),
                   ),
                 ],
+              ),
+
+               SizedBox(height: 10),
+              Text(
+                'Prodajte ${widget.item.ime} po cijeni od ${widget.cijenaTrenutna}',
               ),
             ],
           ),
@@ -197,7 +200,7 @@ class _Item2State extends State<Item2> {
                   money = kes;
                   updateMoney(money!);
 
-                  Navigator.of(context).pop(); 
+                  Navigator.of(context).pop();
 
                   Navigator.push(
                     context,
@@ -218,7 +221,7 @@ class _Item2State extends State<Item2> {
                       dionicaId: widget.item.dionicaId);
                   await DatabaseHelper.deleteDionica(dio);
 
-                  Navigator.of(context).pop(); 
+                  Navigator.of(context).pop();
 
                   Navigator.push(
                     context,
